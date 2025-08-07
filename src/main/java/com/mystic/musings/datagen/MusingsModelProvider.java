@@ -18,8 +18,15 @@ public class MusingsModelProvider extends ItemModelProvider {
         super(output, Musings.MODID, helper);
     }
 
+
     @Override
     protected void registerModels() {
+        withExistingParent("flower_stone", modLoc("block/flower_stone"));
+        withExistingParent("guided_stone", modLoc("block/guided_stone"));
+        withExistingParent("optical_stone", modLoc("block/optical_stone"));
+        withExistingParent("petal_stone", modLoc("block/petal_stone"));
+        withExistingParent("targeted_stone", modLoc("block/targeted_stone"));
+
         for (String ring : DYE_NAMES) {
             for (String bg : DYE_NAMES) {
                 if (ring.equals(bg)) continue;

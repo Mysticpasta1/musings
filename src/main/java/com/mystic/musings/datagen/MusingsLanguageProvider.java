@@ -33,6 +33,13 @@ public class MusingsLanguageProvider extends LanguageProvider {
             add("item."  + Musings.MODID + "." + name, display);
         });
 
+        add("block.musings.flower_stone", "Flower Stone Block");
+        add("block.musings.guided_stone", "Guided Stone Block");
+        add("block.musings.optical_stone", "Optical Stone Block");
+        add("block.musings.petal_stone",  "Petal Stone Block");
+        add("block.musings.targeted_stone", "Targeted Stone Block");
+
+
         BlockInit.CIRCLE_FLIPS_BLOCKS.keySet().forEach(name -> {
             String base = name;
             String flippingSuffix = "_flipping";

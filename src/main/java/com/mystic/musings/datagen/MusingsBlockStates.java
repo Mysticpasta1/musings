@@ -4,6 +4,7 @@ import com.mystic.musings.Musings;
 import com.mystic.musings.init.BlockInit;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class MusingsBlockStates extends BlockStateProvider {
@@ -30,5 +31,11 @@ public class MusingsBlockStates extends BlockStateProvider {
                 models().cubeAll(name, modLoc("block/circle_cycles/" + name))
             );
         });
+
+        simpleBlock(BlockInit.FLOWER_STONE_BLOCK.get(), models().cubeAll("flower_stone", modLoc("block/stone_carvings/flower_stone")));
+        simpleBlock(BlockInit.GUIDED_STONE_BLOCK.get(), models().cubeAll("guided_stone", modLoc("block/stone_carvings/guided_stone")));
+        simpleBlock(BlockInit.OPTICAL_STONE_BLOCK.get(), models().cubeAll("optical_stone", modLoc("block/stone_carvings/optical_stone")));
+        simpleBlock(BlockInit.PETAL_STONE_BLOCK.get(), models().cubeAll("petal_stone", modLoc("block/stone_carvings/petal_stone")));
+        simpleBlock(BlockInit.TARGETED_STONE_BLOCK.get(), models().cubeAll("targeted_stone", modLoc("block/stone_carvings/targeted_stone")));
     }
 }

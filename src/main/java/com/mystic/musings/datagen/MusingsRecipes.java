@@ -9,9 +9,12 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 public class MusingsRecipes extends RecipeProvider {
     public MusingsRecipes(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
@@ -72,6 +75,9 @@ public class MusingsRecipes extends RecipeProvider {
                     .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name));
         });
 
+
+
+
         BlockInit.CIRCLE_FLIPS_BLOCKS.forEach((name, holder) -> {
             Item resultBlock = holder.get().asItem();
             String[] parts = name.split("_");
@@ -108,5 +114,27 @@ public class MusingsRecipes extends RecipeProvider {
                     .unlockedBy("has_" + bg + "_dye", has(bgDye))
                     .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name));
         });
+
+        createStonecutting(recipeOutput, BlockInit.FLOWER_STONE_BLOCK.get().asItem());
+        createStonecutting(recipeOutput, BlockInit.GUIDED_STONE_BLOCK.get().asItem());
+        createStonecutting(recipeOutput, BlockInit.OPTICAL_STONE_BLOCK.get().asItem());
+        createStonecutting(recipeOutput, BlockInit.PETAL_STONE_BLOCK.get().asItem());
+        createStonecutting(recipeOutput, BlockInit.TARGETED_STONE_BLOCK.get().asItem());
+    }
+
+    private void createStonecutting(RecipeOutput recipeOutput, Item result) {
+        // All inputs are vanilla stone
+        Ingredient input = Ingredient.of(Blocks.STONE);
+        // The recipe category for stone variants
+        RecipeCategory category = RecipeCategory.BUILDING_BLOCKS;
+        // Build the recipe: 1 stone → 1 result
+        SingleItemRecipeBuilder
+                .stonecutting(input, category, result, 1)
+                .unlockedBy("has_stone", this.has(Blocks.STONE))
+                // Use a unique path: flower_stone_block_from_stone_stonecutting.json
+                .save(recipeOutput,
+                        ResourceLocation.fromNamespaceAndPath(Musings.MODID,
+                                BuiltInRegistries.ITEM.getKey(result).getPath()
+                                        + "_from_stone_stonecutting"));
     }
 }

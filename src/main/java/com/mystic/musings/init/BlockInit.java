@@ -32,6 +32,21 @@ public class BlockInit {
     public static final Map<String, DeferredBlock<Block>> CIRCLE_CYCLE_BLOCKS = new HashMap<>();
     public static final Map<String, DeferredBlock<Block>> CIRCLE_FLIPS_BLOCKS = new HashMap<>();
 
+    public static final DeferredBlock<Block> FLOWER_STONE_BLOCK = registerBlock("flower_stone",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+
+    public static final DeferredBlock<Block> GUIDED_STONE_BLOCK = registerBlock("guided_stone",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+
+    public static final DeferredBlock<Block> OPTICAL_STONE_BLOCK = registerBlock("optical_stone",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+
+    public static final DeferredBlock<Block> PETAL_STONE_BLOCK = registerBlock("petal_stone",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+
+    public static final DeferredBlock<Block> TARGETED_STONE_BLOCK = registerBlock("targeted_stone",
+            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+
     static {
         for (String ring : DYES) {
             for (String bg : DYES) {
