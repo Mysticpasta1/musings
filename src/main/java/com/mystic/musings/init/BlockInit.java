@@ -1,0 +1,83 @@
+package com.mystic.musings.init;
+
+import com.mystic.musings.Musings;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+public class BlockInit {
+    public static final DeferredRegister.Blocks BLOCKS =
+            DeferredRegister.createBlocks(Musings.MODID);
+
+
+    private static final String[] DYES = {
+            "white","orange","magenta","light_blue","yellow",
+            "lime","pink","gray","light_gray","cyan",
+            "purple","blue","brown","green","red","black"
+    };
+    public static final Map<String, DeferredBlock<Block>> CIRCLE_BLOCKS = new HashMap<>();
+    public static final Map<String, DeferredBlock<Block>> CIRCLE_CYCLE_BLOCKS = new HashMap<>();
+    public static final Map<String, DeferredBlock<Block>> CIRCLE_FLIPS_BLOCKS = new HashMap<>();
+
+    static {
+        for (String ring : DYES) {
+            for (String bg : DYES) {
+                if (ring.equals(bg)) continue;
+                String name = String.format("circle_%s_ring_%s_bg", ring, bg);
+                CIRCLE_BLOCKS.put(name, registerBlock(name, () ->
+                        new Block(BlockBehaviour.Properties
+                                .ofFullCopy(Blocks.GLOWSTONE)
+                        )
+                ));
+            }
+        }
+
+        for (String ring : DYES) {
+            for (String bg : DYES) {
+                if (ring.equals(bg)) continue;
+                String name = String.format("circle_%s_ring_%s_bg_flipping", ring, bg);
+                CIRCLE_FLIPS_BLOCKS.put(name, registerBlock(name, () ->
+                        new Block(BlockBehaviour.Properties
+                                .ofFullCopy(Blocks.GLOWSTONE)
+                        )
+                ));
+            }
+        }
+
+        for (String color : DYES) {
+            String name = "circle_cycle_" + color;
+            CIRCLE_CYCLE_BLOCKS.put(name, registerBlock(name, () ->
+                    new Block(BlockBehaviour.Properties
+                            .ofFullCopy(Blocks.GLOWSTONE)
+                    )
+            ));
+        }
+    }
+
+    private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<B> block) {
+        return registerMainTabBlock(name, block, b -> () -> new BlockItem(b.get(), new Item.Properties()));
+    }
+
+    private static <B extends Block, I extends BlockItem> DeferredBlock<B> registerMainTabBlock(String name, Supplier<B> block, Function<DeferredBlock<B>, Supplier<I>> item) {
+        var reg = BLOCKS.register(name, block);
+        CreativeMenuInit.addToMainTab(ItemInit.ITEMS.register(name, () -> item.apply(reg).get()));
+        return reg;
+    }
+
+    public static void init(IEventBus bus) {
+        BLOCKS.register(bus);
+    }
+}

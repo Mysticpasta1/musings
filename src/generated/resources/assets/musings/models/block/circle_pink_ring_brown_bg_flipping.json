@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "musings:block/circle_flips/circle_pink_ring_brown_bg_flipping"
+  }
+}

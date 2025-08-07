@@ -1,0 +1,22 @@
+package com.mystic.musings;
+
+import com.mojang.logging.LogUtils;
+import com.mystic.musings.init.BlockInit;
+import com.mystic.musings.init.CreativeMenuInit;
+import com.mystic.musings.init.ItemInit;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import org.slf4j.Logger;
+
+@Mod(Musings.MODID)
+public class Musings {
+    public static final String MODID = "musings";
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+    public Musings(IEventBus bus, ModContainer container) {
+        BlockInit.init(bus);
+        ItemInit.init(bus);
+        CreativeMenuInit.init(bus);
+    }
+}

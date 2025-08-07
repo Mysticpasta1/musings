@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            }
+          ],
+          "name": "musings:circle_light_blue_ring_brown_bg_flipping"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "musings:circle_light_blue_ring_brown_bg_flipping"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "musings:blocks/circle_light_blue_ring_brown_bg_flipping"
+}

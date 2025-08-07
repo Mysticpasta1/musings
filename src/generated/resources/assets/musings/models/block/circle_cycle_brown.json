@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "musings:block/circle_cycles/circle_cycle_brown"
+  }
+}

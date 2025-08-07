@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "musings:block/circle_pairs/circle_gray_ring_purple_bg"
+  }
+}
