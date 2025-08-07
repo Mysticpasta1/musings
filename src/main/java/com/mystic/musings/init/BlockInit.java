@@ -1,14 +1,12 @@
 package com.mystic.musings.init;
 
 import com.mystic.musings.Musings;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -22,12 +20,6 @@ public class BlockInit {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(Musings.MODID);
 
-
-    private static final String[] DYES = {
-            "white","orange","magenta","light_blue","yellow",
-            "lime","pink","gray","light_gray","cyan",
-            "purple","blue","brown","green","red","black"
-    };
     public static final Map<String, DeferredBlock<Block>> CIRCLE_BLOCKS = new HashMap<>();
     public static final Map<String, DeferredBlock<Block>> CIRCLE_CYCLE_BLOCKS = new HashMap<>();
     public static final Map<String, DeferredBlock<Block>> CIRCLE_FLIPS_BLOCKS = new HashMap<>();
@@ -48,10 +40,10 @@ public class BlockInit {
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
 
     static {
-        for (String ring : DYES) {
-            for (String bg : DYES) {
+        for (DyeColor ring : DyeColor.values()) {
+            for (DyeColor bg : DyeColor.values()) {
                 if (ring.equals(bg)) continue;
-                String name = String.format("circle_%s_ring_%s_bg", ring, bg);
+                String name = String.format("circle_%s_ring_%s_bg", ring.getName(), bg.getName());
                 CIRCLE_BLOCKS.put(name, registerBlock(name, () ->
                         new Block(BlockBehaviour.Properties
                                 .ofFullCopy(Blocks.GLOWSTONE)
@@ -60,10 +52,10 @@ public class BlockInit {
             }
         }
 
-        for (String ring : DYES) {
-            for (String bg : DYES) {
+        for (DyeColor ring : DyeColor.values()) {
+            for (DyeColor bg : DyeColor.values()) {
                 if (ring.equals(bg)) continue;
-                String name = String.format("circle_%s_ring_%s_bg_flipping", ring, bg);
+                String name = String.format("circle_%s_ring_%s_bg_flipping", ring.getName(), bg.getName());
                 CIRCLE_FLIPS_BLOCKS.put(name, registerBlock(name, () ->
                         new Block(BlockBehaviour.Properties
                                 .ofFullCopy(Blocks.GLOWSTONE)
@@ -72,8 +64,8 @@ public class BlockInit {
             }
         }
 
-        for (String color : DYES) {
-            String name = "circle_cycle_" + color;
+        for (DyeColor color : DyeColor.values()) {
+            String name = "circle_cycle_" + color.getName();
             CIRCLE_CYCLE_BLOCKS.put(name, registerBlock(name, () ->
                     new Block(BlockBehaviour.Properties
                             .ofFullCopy(Blocks.GLOWSTONE)

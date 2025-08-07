@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:magenta_dye"
+    },
+    "L": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "R": {
+      "item": "minecraft:light_gray_dye"
+    },
+    "T": {
+      "item": "minecraft:redstone_torch"
+    }
+  },
+  "pattern": [
+    "RT",
+    "BL"
+  ],
+  "result": {
+    "count": 1,
+    "id": "musings:circle_light_gray_ring_magenta_bg_flipping"
+  }
+}
