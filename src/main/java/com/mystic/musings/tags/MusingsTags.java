@@ -12,6 +12,12 @@ public class MusingsTags {
                 net.minecraft.core.registries.Registries.ITEM,
                 ResourceLocation.fromNamespaceAndPath(Musings.MODID, "musings_blocks")
         );
+
+        // NEW: all wood inlay items
+        public static final TagKey<Item> WOOD_INLAYS = TagKey.create(
+                net.minecraft.core.registries.Registries.ITEM,
+                ResourceLocation.fromNamespaceAndPath(Musings.MODID, "wood_inlays")
+        );
     }
 
     public static class Blocks {
@@ -19,5 +25,12 @@ public class MusingsTags {
                 net.minecraft.core.registries.Registries.BLOCK,
                 ResourceLocation.fromNamespaceAndPath(Musings.MODID, "musings_blocks")
         );
+
+        // NEW: all wood inlay blocks
+        public static final TagKey<Block> WOOD_INLAYS = TagKey.create(
+                net.minecraft.core.registries.Registries.BLOCK,
+                ResourceLocation.fromNamespaceAndPath(Musings.MODID, "wood_inlays")
+        );
     }
 }
+

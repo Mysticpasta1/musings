@@ -33,7 +33,12 @@ public class MusingsItemTagsProvider extends ItemTagsProvider {
                 )
                 .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))
                 .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))
-                .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new));
+                .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))
+                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new));
+
+        tag(MusingsTags.Items.WOOD_INLAYS)
+                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new));
+
     }
 
     @Override

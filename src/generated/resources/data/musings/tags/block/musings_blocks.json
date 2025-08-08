@@ -500,6 +500,17 @@
     "musings:circle_cycle_gray",
     "musings:circle_cycle_cyan",
     "musings:circle_cycle_orange",
-    "musings:circle_cycle_green"
+    "musings:circle_cycle_green",
+    "musings:crimson_inlay",
+    "musings:spruce_inlay",
+    "musings:acacia_inlay",
+    "musings:cherry_inlay",
+    "musings:oak_inlay",
+    "musings:birch_inlay",
+    "musings:warped_inlay",
+    "musings:jungle_inlay",
+    "musings:bamboo_inlay",
+    "musings:dark_oak_inlay",
+    "musings:mangrove_inlay"
   ]
 }

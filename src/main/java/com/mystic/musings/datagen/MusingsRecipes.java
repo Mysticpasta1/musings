@@ -135,6 +135,24 @@ public class MusingsRecipes extends RecipeProvider {
                     .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name));
         });
 
+        BlockInit.WOOD_INLAY_BLOCKS.forEach((name, holder) -> {
+            Item resultBlock = holder.get().asItem();
+            String wood = name.substring(0, name.indexOf("_inlay"));
+
+            Item planksItem = planksItemFor(wood);
+            if (planksItem == Items.AIR) {
+                Musings.LOGGER.warn("No planks found for wood '{}', skipping recipe for '{}'", wood, name);
+                return;
+            }
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, resultBlock)
+                    .define('P', planksItem)
+                    .pattern("P P")
+                    .pattern(" P ")
+                    .pattern("P P")
+                    .unlockedBy("has_" + wood + "_planks", has(planksItem))
+                    .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name + "_from_planks_recipe"));
+        });
 
         createStonecutting(recipeOutput, BlockInit.FLOWER_STONE_BLOCK.get().asItem());
         createStonecutting(recipeOutput, BlockInit.GUIDED_STONE_BLOCK.get().asItem());
@@ -142,6 +160,13 @@ public class MusingsRecipes extends RecipeProvider {
         createStonecutting(recipeOutput, BlockInit.PETAL_STONE_BLOCK.get().asItem());
         createStonecutting(recipeOutput, BlockInit.TARGETED_STONE_BLOCK.get().asItem());
     }
+
+    private Item planksItemFor(String woodName) {
+        var rl = ResourceLocation.withDefaultNamespace(woodName + "_planks");
+        var block = BuiltInRegistries.BLOCK.get(rl);
+        return block == Blocks.AIR ? Items.AIR : block.asItem();
+    }
+
 
     private void createStonecutting(RecipeOutput recipeOutput, Item result) {
         // All inputs are vanilla stone

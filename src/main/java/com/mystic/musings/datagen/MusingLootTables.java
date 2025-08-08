@@ -42,6 +42,9 @@ public class MusingLootTables extends LootTableProvider {
                             BlockInit.CIRCLE_CYCLE_BLOCKS.values()
                                     .forEach(holder -> dropSelf(holder.get(), builder));
 
+                            BlockInit.WOOD_INLAY_BLOCKS.values()
+                                    .forEach(holder -> dropSelf(holder.get(), builder));
+
                             dropSelf(BlockInit.FLOWER_STONE_BLOCK.get(), builder);
                             dropSelf(BlockInit.GUIDED_STONE_BLOCK.get(), builder);
                             dropSelf(BlockInit.PETAL_STONE_BLOCK.get(), builder);

@@ -23,6 +23,7 @@ public class BlockInit {
     public static final Map<String, DeferredBlock<Block>> CIRCLE_BLOCKS = new HashMap<>();
     public static final Map<String, DeferredBlock<Block>> CIRCLE_CYCLE_BLOCKS = new HashMap<>();
     public static final Map<String, DeferredBlock<Block>> CIRCLE_FLIPS_BLOCKS = new HashMap<>();
+    public static final Map<String, DeferredBlock<Block>> WOOD_INLAY_BLOCKS = new HashMap<>();
 
     public static final DeferredBlock<Block> FLOWER_STONE_BLOCK = registerBlock("flower_stone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
@@ -72,6 +73,28 @@ public class BlockInit {
                     )
             ));
         }
+
+        registerWoodInlays();
+    }
+
+    private static void registerWoodInlays() {
+        registerWoodInlay("oak",       Blocks.OAK_PLANKS);
+        registerWoodInlay("spruce",    Blocks.SPRUCE_PLANKS);
+        registerWoodInlay("birch",     Blocks.BIRCH_PLANKS);
+        registerWoodInlay("jungle",    Blocks.JUNGLE_PLANKS);
+        registerWoodInlay("acacia",    Blocks.ACACIA_PLANKS);
+        registerWoodInlay("dark_oak",  Blocks.DARK_OAK_PLANKS);
+        registerWoodInlay("mangrove",  Blocks.MANGROVE_PLANKS);
+        registerWoodInlay("cherry",    Blocks.CHERRY_PLANKS);
+        registerWoodInlay("bamboo",    Blocks.BAMBOO_PLANKS);
+        registerWoodInlay("crimson",   Blocks.CRIMSON_PLANKS);
+        registerWoodInlay("warped",    Blocks.WARPED_PLANKS);
+    }
+
+    private static void registerWoodInlay(String woodName, Block basePlanks) {
+        String regName = woodName + "_inlay";
+        WOOD_INLAY_BLOCKS.put(regName, registerBlock(regName,
+                () -> new Block(BlockBehaviour.Properties.ofFullCopy(basePlanks))));
     }
 
     private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<B> block) {

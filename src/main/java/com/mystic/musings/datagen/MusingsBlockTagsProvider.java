@@ -35,6 +35,9 @@ public class MusingsBlockTagsProvider extends BlockTagsProvider {
                 .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
                 .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
 
+        tag(BlockTags.MINEABLE_WITH_AXE)
+                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+
         tag(MusingsTags.Blocks.MUSINGS_BLOCKS)
                 .add(
                         BlockInit.FLOWER_STONE_BLOCK.get(),
@@ -45,7 +48,11 @@ public class MusingsBlockTagsProvider extends BlockTagsProvider {
                 )
                 .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
                 .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
-                .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+                .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
+                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+
+        tag(MusingsTags.Blocks.WOOD_INLAYS)
+                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
     }
 
     @Override

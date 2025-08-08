@@ -3,7 +3,10 @@ package com.mystic.musings.datagen;
 import com.mystic.musings.Musings;
 import com.mystic.musings.init.BlockInit;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+
+import java.util.Map;
 
 public class MusingsLanguageProvider extends LanguageProvider {
     public MusingsLanguageProvider(PackOutput packOutput) {
@@ -32,6 +35,13 @@ public class MusingsLanguageProvider extends LanguageProvider {
             add("block." + Musings.MODID + "." + name, display);
             add("item."  + Musings.MODID + "." + name, display);
         });
+
+        for (Map.Entry<String, ? extends net.neoforged.neoforge.registries.DeferredBlock<Block>> e
+                : BlockInit.WOOD_INLAY_BLOCKS.entrySet()) {
+            String name = e.getKey();
+            String wood = name.substring(0, name.indexOf("_inlay"));
+            add(e.getValue().get(), toTitle(wood) + " Inlay");
+        }
 
         add("block.musings.flower_stone", "Flower Stone Block");
         add("block.musings.guided_stone", "Guided Stone Block");
@@ -72,5 +82,17 @@ public class MusingsLanguageProvider extends LanguageProvider {
             parts[i] = parts[i].substring(0,1).toUpperCase() + parts[i].substring(1).toLowerCase();
         }
         return String.join(" ", parts);
+    }
+
+    private static String toTitle(String id) {
+        String[] parts = id.split("_");
+        StringBuilder sb = new StringBuilder();
+        for (String p : parts) {
+            if (p.isEmpty()) continue;
+            sb.append(Character.toUpperCase(p.charAt(0)))
+                    .append(p.length() > 1 ? p.substring(1) : "")
+                    .append(" ");
+        }
+        return sb.toString().trim();
     }
 }
