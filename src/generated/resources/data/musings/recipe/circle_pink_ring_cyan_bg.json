@@ -8,6 +8,9 @@
     "L": {
       "item": "minecraft:redstone_lamp"
     },
+    "M": {
+      "item": "musings:musings_template"
+    },
     "R": {
       "item": "minecraft:pink_dye"
     },
@@ -16,8 +19,8 @@
     }
   },
   "pattern": [
-    "RS",
-    "BL"
+    "RS ",
+    "BLM"
   ],
   "result": {
     "count": 1,

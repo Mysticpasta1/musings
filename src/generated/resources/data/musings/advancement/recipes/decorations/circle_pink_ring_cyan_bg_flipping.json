@@ -11,6 +11,16 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "has_musings_template": {
+      "conditions": {
+        "items": [
+          {
+            "items": "musings:musings_template"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_pink_dye": {
       "conditions": {
         "items": [
@@ -32,7 +42,8 @@
     [
       "has_the_recipe",
       "has_pink_dye",
-      "has_cyan_dye"
+      "has_cyan_dye",
+      "has_musings_template"
     ]
   ],
   "rewards": {

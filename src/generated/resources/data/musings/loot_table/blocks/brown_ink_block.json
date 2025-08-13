@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:survives_explosion"
+            }
+          ],
+          "name": "musings:brown_ink_block"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "musings:brown_ink_block"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "musings:blocks/brown_ink_block"
+}

@@ -2,13 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
+    "M": {
+      "item": "musings:musings_template"
+    },
     "P": {
       "item": "minecraft:bamboo_planks"
     }
   },
   "pattern": [
     "P P",
-    " P ",
+    " M ",
     "P P"
   ],
   "result": {

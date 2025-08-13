@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.mystic.musings.init.BlockInit;
 import com.mystic.musings.init.CreativeMenuInit;
 import com.mystic.musings.init.ItemInit;
+import com.mystic.musings.init.ParticleInit;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -20,5 +21,6 @@ public class Musings {
         ItemInit.init(bus);
         CreativeMenuInit.init(bus);
         CreativeMenuInit.bootstrap();
+        ParticleInit.init(bus);
     }
 }

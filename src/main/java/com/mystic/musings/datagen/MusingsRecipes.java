@@ -2,7 +2,7 @@ package com.mystic.musings.datagen;
 
 import com.mystic.musings.Musings;
 import com.mystic.musings.init.BlockInit;
-import com.mystic.musings.init.ItemInit; // <-- add this
+import com.mystic.musings.init.ItemInit;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -61,11 +61,11 @@ public class MusingsRecipes extends RecipeProvider {
             }
 
             ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, resultBlock, 1)
-                    .define(Character.valueOf('R'), ringDye)
-                    .define(Character.valueOf('B'), bgDye)
-                    .define(Character.valueOf('S'), Items.REDSTONE)
-                    .define(Character.valueOf('L'), Items.REDSTONE_LAMP)
-                    .define(Character.valueOf('M'), ItemInit.MUSINGS_TEMPLATE.get())
+                    .define('R', ringDye)
+                    .define('B', bgDye)
+                    .define('S', Items.REDSTONE)
+                    .define('L', Items.REDSTONE_LAMP)
+                    .define('M', ItemInit.MUSINGS_TEMPLATE.get())
                     .pattern("RS ")
                     .pattern("BLM")
                     .unlockedBy("has_" + ringColor + "_dye", has(ringDye))
@@ -93,11 +93,11 @@ public class MusingsRecipes extends RecipeProvider {
             }
 
             ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, resultBlock)
-                    .define(Character.valueOf('R'), ringDye)
-                    .define(Character.valueOf('B'), bgDye)
-                    .define(Character.valueOf('T'), Items.REDSTONE_TORCH)
-                    .define(Character.valueOf('L'), Items.REDSTONE_LAMP)
-                    .define(Character.valueOf('M'), ItemInit.MUSINGS_TEMPLATE.get())
+                    .define('R', ringDye)
+                    .define('B', bgDye)
+                    .define('T', Items.REDSTONE_TORCH)
+                    .define('L', Items.REDSTONE_LAMP)
+                    .define('M', ItemInit.MUSINGS_TEMPLATE.get())
                     .pattern("RT ")
                     .pattern("BLM")
                     .unlockedBy("has_" + ringColor + "_dye", has(ringDye))
@@ -117,8 +117,8 @@ public class MusingsRecipes extends RecipeProvider {
             }
 
             ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, resultBlock)
-                    .define(Character.valueOf('P'), planksItem)
-                    .define(Character.valueOf('M'), ItemInit.MUSINGS_TEMPLATE.get())
+                    .define('P', planksItem)
+                    .define('M', ItemInit.MUSINGS_TEMPLATE.get())
                     .pattern("P P")
                     .pattern(" M ")
                     .pattern("P P")
@@ -133,11 +133,11 @@ public class MusingsRecipes extends RecipeProvider {
             Item dye = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(color + "_dye"));
 
             ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, resultBlock, 1)
-                    .define(Character.valueOf('D'), dye)
-                    .define(Character.valueOf('S'), Items.SLIME_BLOCK)
-                    .define(Character.valueOf('M'), ItemInit.MUSINGS_TEMPLATE.get())
+                    .define('D', dye)
+                    .define('S', Items.SLIME_BLOCK)
+                    .define('M', ItemInit.MUSINGS_TEMPLATE.get())
                     .pattern("DSD")
-                    .pattern("SMS ")
+                    .pattern("SMS")
                     .pattern("DSD")
                     .unlockedBy("has_" + color + "_dye", has(dye))
                     .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
@@ -152,9 +152,9 @@ public class MusingsRecipes extends RecipeProvider {
         createStonecutting(recipeOutput, BlockInit.TARGETED_STONE_BLOCK.get().asItem());
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemInit.MUSINGS_TEMPLATE.get())
-                .define(Character.valueOf('P'), Items.PAPER)
-                .define(Character.valueOf('S'), Items.STRING)
-                .define(Character.valueOf('I'), Items.BLACK_DYE)
+                .define('P', Items.PAPER)
+                .define('S', Items.STRING)
+                .define('I', Items.BLACK_DYE)
                 .pattern("SPS")
                 .pattern("PIP")
                 .pattern("SPS")
