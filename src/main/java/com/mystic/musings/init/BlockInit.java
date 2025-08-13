@@ -1,6 +1,7 @@
 package com.mystic.musings.init;
 
 import com.mystic.musings.Musings;
+import com.mystic.musings.blocks.InkBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -24,6 +25,7 @@ public class BlockInit {
     public static final Map<String, DeferredBlock<Block>> CIRCLE_CYCLE_BLOCKS = new HashMap<>();
     public static final Map<String, DeferredBlock<Block>> CIRCLE_FLIPS_BLOCKS = new HashMap<>();
     public static final Map<String, DeferredBlock<Block>> WOOD_INLAY_BLOCKS = new HashMap<>();
+    public static final Map<String, DeferredBlock<Block>> INK_BLOCKS = new HashMap<>();
 
     public static final DeferredBlock<Block> FLOWER_STONE_BLOCK = registerBlock("flower_stone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
@@ -39,6 +41,20 @@ public class BlockInit {
 
     public static final DeferredBlock<Block> TARGETED_STONE_BLOCK = registerBlock("targeted_stone",
             () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+
+    private static void registerColoredInks() {
+        for (DyeColor color : DyeColor.values()) {
+            String name = color.getName() + "_ink_block";
+            INK_BLOCKS.put(name, registerBlock(name, () ->
+                    new InkBlock(BlockBehaviour.Properties
+                            .of()
+                            .mapColor(color)
+                            .strength(1.8F)
+                            .sound(net.minecraft.world.level.block.SoundType.SLIME_BLOCK)
+                    )
+            ));
+        }
+    }
 
     static {
         for (DyeColor ring : DyeColor.values()) {
@@ -75,6 +91,7 @@ public class BlockInit {
         }
 
         registerWoodInlays();
+        registerColoredInks();
     }
 
     private static void registerWoodInlays() {

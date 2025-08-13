@@ -14,9 +14,11 @@ public class Musings {
     public static final String MODID = "musings";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public Musings(IEventBus bus, ModContainer container) {
+    public Musings(ModContainer container) {
+        IEventBus bus = container.getEventBus();
         BlockInit.init(bus);
         ItemInit.init(bus);
         CreativeMenuInit.init(bus);
+        CreativeMenuInit.bootstrap();
     }
 }

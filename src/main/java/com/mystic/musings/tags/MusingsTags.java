@@ -8,9 +8,9 @@ import net.minecraft.world.level.block.Block;
 
 public class MusingsTags {
     public static class Items {
-        public static final TagKey<Item> MUSINGS_BLOCKS = TagKey.create(
+        public static final TagKey<Item> MUSINGS_ITEMS = TagKey.create(
                 net.minecraft.core.registries.Registries.ITEM,
-                ResourceLocation.fromNamespaceAndPath(Musings.MODID, "musings_blocks")
+                ResourceLocation.fromNamespaceAndPath(Musings.MODID, "musings_items")
         );
 
         // NEW: all wood inlay items

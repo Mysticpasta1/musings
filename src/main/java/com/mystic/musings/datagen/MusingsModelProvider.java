@@ -12,7 +12,7 @@ public class MusingsModelProvider extends ItemModelProvider {
             "purple","blue","brown","green","red","black"
     };
 
-    // NEW: wood set used for <wood>_inlay
+    // Wood types for inlays
     private static final String[] WOOD_TYPES = {
             "oak","spruce","birch","jungle","acacia",
             "dark_oak","mangrove","cherry","bamboo","crimson","warped"
@@ -54,11 +54,23 @@ public class MusingsModelProvider extends ItemModelProvider {
             withExistingParent(cycleName, modLoc("block/" + cycleName));
         }
 
-        // NEW: wood inlays — item models point to block models
+        // colored ink blocks
+        for (String color : DYE_NAMES) {
+            String name = color + "_ink_block";
+            withExistingParent(name, modLoc("block/" + name));
+        }
+
+        // wood inlays
         for (String wood : WOOD_TYPES) {
             String name = wood + "_inlay";
             withExistingParent(name, modLoc("block/" + name));
         }
+
+        // musings template item
+        singleTexture("musings_template",
+                mcLoc("item/generated"),
+                "layer0", modLoc("item/musings_template"));
+
     }
 }
 

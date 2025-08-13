@@ -2,6 +2,7 @@ package com.mystic.musings.datagen;
 
 import com.mystic.musings.Musings;
 import com.mystic.musings.init.BlockInit;
+import com.mystic.musings.init.ItemInit; // <-- add this
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
@@ -27,15 +28,15 @@ public class MusingsRecipes extends RecipeProvider {
         BlockInit.CIRCLE_CYCLE_BLOCKS.forEach((name, holder) -> {
             Item resultBlock = holder.get().asItem();
             String color = name.substring("circle_cycle_".length());
-            Item dye = BuiltInRegistries.ITEM.get(
-                    ResourceLocation.withDefaultNamespace(color + "_dye")
-            );
+            Item dye = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(color + "_dye"));
 
             ShapelessRecipeBuilder.shapeless(RecipeCategory.DECORATIONS, resultBlock, 1)
                     .requires(Items.REDSTONE_LAMP)
                     .requires(dye)
                     .requires(Items.REDSTONE)
+                    .requires(ItemInit.MUSINGS_TEMPLATE.get())
                     .unlockedBy("has_" + color + "_dye", has(dye))
+                    .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
                     .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name));
         });
 
@@ -43,95 +44,65 @@ public class MusingsRecipes extends RecipeProvider {
             Item resultBlock = holder.get().asItem();
             String[] parts = name.split("_");
 
-            // find the literal “ring” and “bg” indices
-            int ringIdx = IntStream.range(0, parts.length)
-                    .filter(i -> parts[i].equals("ring"))
-                    .findFirst().orElse(-1);
-            int bgIdx   = IntStream.range(0, parts.length)
-                    .filter(i -> parts[i].equals("bg"))
-                    .findFirst().orElse(-1);
-
-            // sanity check
+            int ringIdx = IntStream.range(0, parts.length).filter(i -> parts[i].equals("ring")).findFirst().orElse(-1);
+            int bgIdx   = IntStream.range(0, parts.length).filter(i -> parts[i].equals("bg")).findFirst().orElse(-1);
             if (ringIdx < 1 || bgIdx < ringIdx + 1) return;
 
-            // everything between parts[1]..parts[ringIdx] is the ring color
             String ringColor = String.join("_", Arrays.copyOfRange(parts, 1, ringIdx));
-            // everything between ringIdx+1..bgIdx is the bg color
             String bgColor   = String.join("_", Arrays.copyOfRange(parts, ringIdx + 1, bgIdx));
 
-            Item ringDye = BuiltInRegistries.ITEM.get(
-                    ResourceLocation.withDefaultNamespace(ringColor + "_dye")
-            );
-            Item bgDye = BuiltInRegistries.ITEM.get(
-                    ResourceLocation.withDefaultNamespace(bgColor + "_dye")
-            );
+            Item ringDye = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(ringColor + "_dye"));
+            Item bgDye   = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(bgColor + "_dye"));
 
-            // skip identical or missing
             if (bgDye == ringDye) return;
             if (ringDye == Items.AIR || bgDye == Items.AIR) {
-                Musings.LOGGER.warn(
-                        "Missing dye for pair '{}': ring '{}' or bg '{}' not found, skipping",
-                        name, ringColor, bgColor
-                );
+                Musings.LOGGER.warn("Missing dye for pair '{}': ring '{}' or bg '{}' not found, skipping", name, ringColor, bgColor);
                 return;
             }
 
             ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, resultBlock, 1)
-                    .define('R', ringDye)
-                    .define('B', bgDye)
-                    .define('S', Items.REDSTONE)
-                    .define('L', Items.REDSTONE_LAMP)
-                    .pattern("RS")
-                    .pattern("BL")
+                    .define(Character.valueOf('R'), ringDye)
+                    .define(Character.valueOf('B'), bgDye)
+                    .define(Character.valueOf('S'), Items.REDSTONE)
+                    .define(Character.valueOf('L'), Items.REDSTONE_LAMP)
+                    .define(Character.valueOf('M'), ItemInit.MUSINGS_TEMPLATE.get())
+                    .pattern("RS ")
+                    .pattern("BLM")
                     .unlockedBy("has_" + ringColor + "_dye", has(ringDye))
                     .unlockedBy("has_" + bgColor   + "_dye", has(bgDye))
+                    .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
                     .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name));
         });
 
         BlockInit.CIRCLE_FLIPS_BLOCKS.forEach((name, holder) -> {
             Item resultBlock = holder.get().asItem();
-
-            // split on "_" and find the two marker indices
             String[] parts = name.split("_");
-            int ringIdx = IntStream.range(0, parts.length)
-                    .filter(i -> parts[i].equals("ring"))
-                    .findFirst().orElse(-1);
-            int bgIdx   = IntStream.range(0, parts.length)
-                    .filter(i -> parts[i].equals("bg"))
-                    .findFirst().orElse(-1);
 
-            if (ringIdx < 1 || bgIdx < ringIdx + 1) {
-                // name didn’t match expected pattern, skip
-                return;
-            }
+            int ringIdx = IntStream.range(0, parts.length).filter(i -> parts[i].equals("ring")).findFirst().orElse(-1);
+            int bgIdx   = IntStream.range(0, parts.length).filter(i -> parts[i].equals("bg")).findFirst().orElse(-1);
+            if (ringIdx < 1 || bgIdx < ringIdx + 1) return;
 
-            // everything between "circle" (parts[0]) and "ring" is the ring color
             String ringColor = String.join("_", Arrays.copyOfRange(parts, 1, ringIdx));
-            // everything between "ring" and "bg" is the background color
             String bgColor   = String.join("_", Arrays.copyOfRange(parts, ringIdx + 1, bgIdx));
 
-            Item ringDye = BuiltInRegistries.ITEM.get(
-                    ResourceLocation.withDefaultNamespace(ringColor + "_dye")
-            );
-            Item bgDye = BuiltInRegistries.ITEM.get(
-                    ResourceLocation.withDefaultNamespace(bgColor + "_dye")
-            );
-
+            Item ringDye = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(ringColor + "_dye"));
+            Item bgDye   = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(bgColor + "_dye"));
             if (ringDye == Items.AIR || bgDye == Items.AIR) {
-                LOGGER.warn("Missing dye for pair '{}': ring '{}' or bg '{}' not found, skipping",
-                        name, ringColor, bgColor);
+                LOGGER.warn("Missing dye for pair '{}': ring '{}' or bg '{}' not found, skipping", name, ringColor, bgColor);
                 return;
             }
 
             ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, resultBlock)
-                    .define('R', ringDye)
-                    .define('B', bgDye)
-                    .define('T', Items.REDSTONE_TORCH)
-                    .define('L', Items.REDSTONE_LAMP)
-                    .pattern("RT")
-                    .pattern("BL")
+                    .define(Character.valueOf('R'), ringDye)
+                    .define(Character.valueOf('B'), bgDye)
+                    .define(Character.valueOf('T'), Items.REDSTONE_TORCH)
+                    .define(Character.valueOf('L'), Items.REDSTONE_LAMP)
+                    .define(Character.valueOf('M'), ItemInit.MUSINGS_TEMPLATE.get())
+                    .pattern("RT ")
+                    .pattern("BLM")
                     .unlockedBy("has_" + ringColor + "_dye", has(ringDye))
                     .unlockedBy("has_" + bgColor   + "_dye", has(bgDye))
+                    .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
                     .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name));
         });
 
@@ -146,12 +117,32 @@ public class MusingsRecipes extends RecipeProvider {
             }
 
             ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, resultBlock)
-                    .define('P', planksItem)
+                    .define(Character.valueOf('P'), planksItem)
+                    .define(Character.valueOf('M'), ItemInit.MUSINGS_TEMPLATE.get())
                     .pattern("P P")
-                    .pattern(" P ")
+                    .pattern(" M ")
                     .pattern("P P")
                     .unlockedBy("has_" + wood + "_planks", has(planksItem))
+                    .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
                     .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name + "_from_planks_recipe"));
+        });
+
+        BlockInit.INK_BLOCKS.forEach((name, holder) -> {
+            Item resultBlock = holder.get().asItem();
+            String color = name.substring(0, name.indexOf("_ink_block"));
+            Item dye = BuiltInRegistries.ITEM.get(ResourceLocation.withDefaultNamespace(color + "_dye"));
+
+            ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, resultBlock, 1)
+                    .define(Character.valueOf('D'), dye)
+                    .define(Character.valueOf('S'), Items.SLIME_BLOCK)
+                    .define(Character.valueOf('M'), ItemInit.MUSINGS_TEMPLATE.get())
+                    .pattern("DSD")
+                    .pattern("SMS ")
+                    .pattern("DSD")
+                    .unlockedBy("has_" + color + "_dye", has(dye))
+                    .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
+                    .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, name));
+
         });
 
         createStonecutting(recipeOutput, BlockInit.FLOWER_STONE_BLOCK.get().asItem());
@@ -159,6 +150,16 @@ public class MusingsRecipes extends RecipeProvider {
         createStonecutting(recipeOutput, BlockInit.OPTICAL_STONE_BLOCK.get().asItem());
         createStonecutting(recipeOutput, BlockInit.PETAL_STONE_BLOCK.get().asItem());
         createStonecutting(recipeOutput, BlockInit.TARGETED_STONE_BLOCK.get().asItem());
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ItemInit.MUSINGS_TEMPLATE.get())
+                .define(Character.valueOf('P'), Items.PAPER)
+                .define(Character.valueOf('S'), Items.STRING)
+                .define(Character.valueOf('I'), Items.BLACK_DYE)
+                .pattern("SPS")
+                .pattern("PIP")
+                .pattern("SPS")
+                .unlockedBy("has_paper", has(Items.PAPER))
+                .save(recipeOutput, ResourceLocation.fromNamespaceAndPath(Musings.MODID, "musings_template"));
     }
 
     private Item planksItemFor(String woodName) {
@@ -167,17 +168,12 @@ public class MusingsRecipes extends RecipeProvider {
         return block == Blocks.AIR ? Items.AIR : block.asItem();
     }
 
-
     private void createStonecutting(RecipeOutput recipeOutput, Item result) {
-        // All inputs are vanilla stone
         Ingredient input = Ingredient.of(Blocks.STONE);
-        // The recipe category for stone variants
         RecipeCategory category = RecipeCategory.BUILDING_BLOCKS;
-        // Build the recipe: 1 stone → 1 result
         SingleItemRecipeBuilder
                 .stonecutting(input, category, result, 1)
                 .unlockedBy("has_stone", has(Blocks.STONE))
-                // Use a unique path: flower_stone_block_from_stone_stonecutting.json
                 .save(recipeOutput,
                         ResourceLocation.fromNamespaceAndPath(Musings.MODID,
                                 BuiltInRegistries.ITEM.getKey(result).getPath()

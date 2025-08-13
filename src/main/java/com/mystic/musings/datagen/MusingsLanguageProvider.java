@@ -2,9 +2,11 @@ package com.mystic.musings.datagen;
 
 import com.mystic.musings.Musings;
 import com.mystic.musings.init.BlockInit;
+import com.mystic.musings.init.ItemInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 import java.util.Map;
 
@@ -43,6 +45,14 @@ public class MusingsLanguageProvider extends LanguageProvider {
             add(e.getValue().get(), toTitle(wood) + " Inlay");
         }
 
+        for (Map.Entry<String, ? extends DeferredBlock<Block>> e : BlockInit.INK_BLOCKS.entrySet()) {
+            String name = e.getKey();
+            String color = name.substring(0, name.length() - "_ink_block".length());
+            String prettyColor = capitalizeWords(color); // e.g. "Red"
+            add(e.getValue().get(), prettyColor + " Ink Block");
+        }
+
+        add(ItemInit.MUSINGS_TEMPLATE.get(), "Musings Template");
         add("block.musings.flower_stone", "Flower Stone Block");
         add("block.musings.guided_stone", "Guided Stone Block");
         add("block.musings.optical_stone", "Optical Stone Block");

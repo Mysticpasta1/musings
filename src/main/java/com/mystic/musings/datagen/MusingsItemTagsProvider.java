@@ -2,6 +2,7 @@ package com.mystic.musings.datagen;
 
 import com.mystic.musings.Musings;
 import com.mystic.musings.init.BlockInit;
+import com.mystic.musings.init.ItemInit;
 import com.mystic.musings.tags.MusingsTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -23,7 +24,7 @@ public class MusingsItemTagsProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider provider) {
-        tag(MusingsTags.Items.MUSINGS_BLOCKS)
+        tag(MusingsTags.Items.MUSINGS_ITEMS)
                 .add(
                         BlockInit.FLOWER_STONE_BLOCK.get().asItem(),
                         BlockInit.GUIDED_STONE_BLOCK.get().asItem(),
@@ -31,6 +32,8 @@ public class MusingsItemTagsProvider extends ItemTagsProvider {
                         BlockInit.PETAL_STONE_BLOCK.get().asItem(),
                         BlockInit.TARGETED_STONE_BLOCK.get().asItem()
                 )
+                .add(ItemInit.MUSINGS_TEMPLATE.asItem())
+                .add(BlockInit.INK_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))
                 .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))
                 .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))
                 .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))

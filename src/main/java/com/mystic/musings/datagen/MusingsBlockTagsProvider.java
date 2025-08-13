@@ -31,6 +31,7 @@ public class MusingsBlockTagsProvider extends BlockTagsProvider {
                         BlockInit.PETAL_STONE_BLOCK.get(),
                         BlockInit.TARGETED_STONE_BLOCK.get()
                 )
+                .add(BlockInit.INK_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
                 .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
                 .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
                 .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
@@ -56,7 +57,7 @@ public class MusingsBlockTagsProvider extends BlockTagsProvider {
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Musings Block Tags";
     }
 }
