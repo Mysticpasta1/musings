@@ -5,8 +5,8 @@ import com.mystic.musings.init.BlockInit;
 import com.mystic.musings.init.ItemInit;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.LanguageProvider;
-import net.neoforged.neoforge.registries.DeferredBlock;
+import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 
@@ -38,14 +38,14 @@ public class MusingsLanguageProvider extends LanguageProvider {
             add("item."  + Musings.MODID + "." + name, display);
         });
 
-        for (Map.Entry<String, ? extends net.neoforged.neoforge.registries.DeferredBlock<Block>> e
+        for (Map.Entry<String, ? extends RegistryObject<Block>> e
                 : BlockInit.WOOD_INLAY_BLOCKS.entrySet()) {
             String name = e.getKey();
             String wood = name.substring(0, name.indexOf("_inlay"));
             add(e.getValue().get(), toTitle(wood) + " Inlay");
         }
 
-        for (Map.Entry<String, ? extends DeferredBlock<Block>> e : BlockInit.INK_BLOCKS.entrySet()) {
+        for (Map.Entry<String, ? extends RegistryObject<Block>> e : BlockInit.INK_BLOCKS.entrySet()) {
             String name = e.getKey();
             String color = name.substring(0, name.length() - "_ink_block".length());
             String prettyColor = capitalizeWords(color); // e.g. "Red"

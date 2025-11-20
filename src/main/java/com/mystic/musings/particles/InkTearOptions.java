@@ -1,40 +1,133 @@
 package com.mystic.musings.particles;
 
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mystic.musings.init.ParticleInit;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
-import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.StreamCodec;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.network.FriendlyByteBuf;
 
-public record InkTearOptions(Stage stage, float r, float g, float b) implements ParticleOptions {
-    public enum Stage { HANG, FALL, LAND }
+import java.util.Locale;
 
-    public static InkTearOptions hang(float r, float g, float b) { return new InkTearOptions(Stage.HANG, r, g, b); }
-    public static InkTearOptions fall(float r, float g, float b) { return new InkTearOptions(Stage.FALL, r, g, b); }
-    public static InkTearOptions land(float r, float g, float b) { return new InkTearOptions(Stage.LAND, r, g, b); }
+public record InkTearOptions(float r, float g, float b, Mode mode) implements ParticleOptions {
+    public enum Mode {HANG, FALL, LAND}
 
-    @Override public @NotNull ParticleType<?> getType() {
-        return switch (stage) {
-            case HANG -> ParticleInit.INK_TEAR_HANG.get();
-            case FALL -> ParticleInit.INK_TEAR_FALL.get();
-            case LAND -> ParticleInit.INK_TEAR_LAND.get();
-        };
+    public static InkTearOptions hang(float r, float g, float b) {
+        return new InkTearOptions(r, g, b, Mode.HANG);
     }
 
-    public static final MapCodec<InkTearOptions> CODEC = RecordCodecBuilder.mapCodec(i ->
-            i.group(
+    public static InkTearOptions fall(float r, float g, float b) {
+        return new InkTearOptions(r, g, b, Mode.FALL);
+    }
+
+    public static InkTearOptions land(float r, float g, float b) {
+        return new InkTearOptions(r, g, b, Mode.LAND);
+    }
+
+    private static final Codec<InkTearOptions> RGB_CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(
                     Codec.FLOAT.fieldOf("r").forGetter(InkTearOptions::r),
                     Codec.FLOAT.fieldOf("g").forGetter(InkTearOptions::g),
                     Codec.FLOAT.fieldOf("b").forGetter(InkTearOptions::b)
-            ).apply(i, InkTearOptions::hang)
+            ).apply(instance, (r, g, b) -> new InkTearOptions(r, g, b, Mode.HANG))  // placeholder mode
     );
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, InkTearOptions> RGB_STREAM =
-            StreamCodec.of((buf, o) -> { buf.writeFloat(o.r()); buf.writeFloat(o.g()); buf.writeFloat(o.b()); },
-                    buf -> hang(buf.readFloat(), buf.readFloat(), buf.readFloat()));
-}
+    public static final Codec<InkTearOptions> HANG_CODEC = RGB_CODEC.xmap(
+            o -> InkTearOptions.hang(o.r(), o.g(), o.b()),
+            o -> o
+    );
+    public static final Codec<InkTearOptions> FALL_CODEC = RGB_CODEC.xmap(
+            o -> InkTearOptions.fall(o.r(), o.g(), o.b()),
+            o -> o
+    );
+    public static final Codec<InkTearOptions> LAND_CODEC = RGB_CODEC.xmap(
+            o -> InkTearOptions.land(o.r(), o.g(), o.b()),
+            o -> o
+    );
 
+    public static final Deserializer<InkTearOptions> HANG_DESERIALIZER =
+            new Deserializer<>() {
+                @Override
+                public InkTearOptions fromCommand(ParticleType<InkTearOptions> type, StringReader reader)
+                        throws CommandSyntaxException {
+                    reader.expect(' ');
+                    float r = reader.readFloat();
+                    reader.expect(' ');
+                    float g = reader.readFloat();
+                    reader.expect(' ');
+                    float b = reader.readFloat();
+                    return InkTearOptions.hang(r, g, b);
+                }
+
+                @Override
+                public InkTearOptions fromNetwork(ParticleType<InkTearOptions> type, FriendlyByteBuf buf) {
+                    float r = buf.readFloat();
+                    float g = buf.readFloat();
+                    float b = buf.readFloat();
+                    return InkTearOptions.hang(r, g, b);
+                }
+            };
+
+    public static final Deserializer<InkTearOptions> FALL_DESERIALIZER =
+            new Deserializer<>() {
+                @Override
+                public InkTearOptions fromCommand(ParticleType<InkTearOptions> type, StringReader reader)
+                        throws CommandSyntaxException {
+                    reader.expect(' ');
+                    float r = reader.readFloat();
+                    reader.expect(' ');
+                    float g = reader.readFloat();
+                    float b = reader.readFloat();
+                    return InkTearOptions.fall(r, g, b);
+                }
+
+                @Override
+                public InkTearOptions fromNetwork(ParticleType<InkTearOptions> type, FriendlyByteBuf buf) {
+                    float r = buf.readFloat();
+                    float g = buf.readFloat();
+                    float b = buf.readFloat();
+                    return InkTearOptions.fall(r, g, b);
+                }
+            };
+
+    public static final Deserializer<InkTearOptions> LAND_DESERIALIZER =
+            new Deserializer<>() {
+                @Override
+                public InkTearOptions fromCommand(ParticleType<InkTearOptions> type, StringReader reader)
+                        throws CommandSyntaxException {
+                    reader.expect(' ');
+                    float r = reader.readFloat();
+                    reader.expect(' ');
+                    float g = reader.readFloat();
+                    float b = reader.readFloat();
+                    return InkTearOptions.land(r, g, b);
+                }
+
+                @Override
+                public InkTearOptions fromNetwork(ParticleType<InkTearOptions> type, FriendlyByteBuf buf) {
+                    float r = buf.readFloat();
+                    float g = buf.readFloat();
+                    float b = buf.readFloat();
+                    return InkTearOptions.land(r, g, b);
+                }
+            };
+
+    @Override
+    public ParticleType<?> getType() {
+        return ParticleInit.INK_TEAR_HANG.get();
+    }
+
+    @Override
+    public void writeToNetwork(FriendlyByteBuf buf) {
+        buf.writeFloat(this.r);
+        buf.writeFloat(this.g);
+        buf.writeFloat(this.b);
+    }
+
+    @Override
+    public String writeToString() {
+        return String.format(Locale.ROOT, "%f %f %f", this.r, this.g, this.b);
+    }
+}

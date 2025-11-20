@@ -9,7 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -32,7 +32,7 @@ public class MusingsItemTagsProvider extends ItemTagsProvider {
                         BlockInit.PETAL_STONE_BLOCK.get().asItem(),
                         BlockInit.TARGETED_STONE_BLOCK.get().asItem()
                 )
-                .add(ItemInit.MUSINGS_TEMPLATE.asItem())
+                .add(ItemInit.MUSINGS_TEMPLATE.get().asItem())
                 .add(BlockInit.INK_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))
                 .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))
                 .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(b -> b.get().asItem()).toArray(Item[]::new))

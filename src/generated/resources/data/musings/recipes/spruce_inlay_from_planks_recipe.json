@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "M": {
+      "item": "musings:musings_template"
+    },
+    "P": {
+      "item": "minecraft:spruce_planks"
+    }
+  },
+  "pattern": [
+    "P P",
+    " M ",
+    "P P"
+  ],
+  "result": {
+    "item": "musings:spruce_inlay"
+  },
+  "show_notification": true
+}

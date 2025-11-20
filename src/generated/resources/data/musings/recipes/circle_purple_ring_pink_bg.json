@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:pink_dye"
+    },
+    "L": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "M": {
+      "item": "musings:musings_template"
+    },
+    "R": {
+      "item": "minecraft:purple_dye"
+    },
+    "S": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RS ",
+    "BLM"
+  ],
+  "result": {
+    "item": "musings:circle_purple_ring_pink_bg"
+  },
+  "show_notification": true
+}

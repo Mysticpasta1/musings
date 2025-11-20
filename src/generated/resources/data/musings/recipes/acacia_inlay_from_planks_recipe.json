@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "M": {
+      "item": "musings:musings_template"
+    },
+    "P": {
+      "item": "minecraft:acacia_planks"
+    }
+  },
+  "pattern": [
+    "P P",
+    " M ",
+    "P P"
+  ],
+  "result": {
+    "item": "musings:acacia_inlay"
+  },
+  "show_notification": true
+}

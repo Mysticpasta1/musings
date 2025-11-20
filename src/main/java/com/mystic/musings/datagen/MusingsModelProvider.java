@@ -2,8 +2,8 @@ package com.mystic.musings.datagen;
 
 import com.mystic.musings.Musings;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class MusingsModelProvider extends ItemModelProvider {
     private static final String[] DYE_NAMES = {

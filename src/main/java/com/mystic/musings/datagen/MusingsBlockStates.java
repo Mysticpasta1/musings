@@ -3,8 +3,8 @@ package com.mystic.musings.datagen;
 import com.mystic.musings.Musings;
 import com.mystic.musings.init.BlockInit;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class MusingsBlockStates extends BlockStateProvider {
     public MusingsBlockStates(PackOutput output, ExistingFileHelper helper) {

@@ -16,15 +16,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
 public class MusingsRecipes extends RecipeProvider {
-    public MusingsRecipes(PackOutput output, CompletableFuture<HolderLookup.Provider> provider) {
-        super(output, provider);
+    public MusingsRecipes(PackOutput output) {
+        super(output);
     }
 
     @Override
-    protected void buildRecipes(@NotNull RecipeOutput recipeOutput, HolderLookup.@NotNull Provider holderLookup) {
+    protected void buildRecipes(@NotNull Consumer<FinishedRecipe> recipeOutput) {
         BlockInit.CIRCLE_CYCLE_BLOCKS.forEach((name, holder) -> {
             Item resultBlock = holder.get().asItem();
             String color = name.substring("circle_cycle_".length());
@@ -168,7 +169,7 @@ public class MusingsRecipes extends RecipeProvider {
         return block == Blocks.AIR ? Items.AIR : block.asItem();
     }
 
-    private void createStonecutting(RecipeOutput recipeOutput, Item result) {
+    private void createStonecutting(Consumer<FinishedRecipe> recipeOutput, Item result) {
         Ingredient input = Ingredient.of(Blocks.STONE);
         RecipeCategory category = RecipeCategory.BUILDING_BLOCKS;
         SingleItemRecipeBuilder

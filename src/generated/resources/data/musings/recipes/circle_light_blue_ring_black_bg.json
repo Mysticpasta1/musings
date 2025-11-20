@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:black_dye"
+    },
+    "L": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "M": {
+      "item": "musings:musings_template"
+    },
+    "R": {
+      "item": "minecraft:light_blue_dye"
+    },
+    "S": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RS ",
+    "BLM"
+  ],
+  "result": {
+    "item": "musings:circle_light_blue_ring_black_bg"
+  },
+  "show_notification": true
+}

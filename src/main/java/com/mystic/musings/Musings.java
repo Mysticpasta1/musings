@@ -5,9 +5,9 @@ import com.mystic.musings.init.BlockInit;
 import com.mystic.musings.init.CreativeMenuInit;
 import com.mystic.musings.init.ItemInit;
 import com.mystic.musings.init.ParticleInit;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 @Mod(Musings.MODID)
@@ -15,8 +15,8 @@ public class Musings {
     public static final String MODID = "musings";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public Musings(ModContainer container) {
-        IEventBus bus = container.getEventBus();
+    public Musings(FMLJavaModLoadingContext context) {
+        IEventBus bus = context.getModEventBus();
         BlockInit.init(bus);
         ItemInit.init(bus);
         CreativeMenuInit.init(bus);

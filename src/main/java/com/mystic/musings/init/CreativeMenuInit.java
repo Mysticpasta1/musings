@@ -8,9 +8,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +41,11 @@ public class CreativeMenuInit {
                 .build());
     }
 
-    public static <T extends Item> void addToMainTab (DeferredItem<T> itemLike) {
+    public static <T extends Item> void addToMainTab (RegistryObject<T> itemLike) {
         MAIN_BLOCKS.add(itemLike);
     }
 
-    public static <T extends Item> void addToMainTabItems (DeferredItem<T> itemLike) {
+    public static <T extends Item> void addToMainTabItems (RegistryObject<T> itemLike) {
         MAIN_ITEMS.add(itemLike);
     }
 

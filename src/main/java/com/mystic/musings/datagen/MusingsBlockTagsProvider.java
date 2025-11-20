@@ -7,9 +7,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
+import net.minecraftforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -31,13 +31,13 @@ public class MusingsBlockTagsProvider extends BlockTagsProvider {
                         BlockInit.PETAL_STONE_BLOCK.get(),
                         BlockInit.TARGETED_STONE_BLOCK.get()
                 )
-                .add(BlockInit.INK_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
-                .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
-                .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
-                .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+                .add(BlockInit.INK_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new))
+                .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new))
+                .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new))
+                .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new));
 
         tag(BlockTags.MINEABLE_WITH_AXE)
-                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new));
 
         tag(MusingsTags.Blocks.MUSINGS_BLOCKS)
                 .add(
@@ -47,13 +47,13 @@ public class MusingsBlockTagsProvider extends BlockTagsProvider {
                         BlockInit.PETAL_STONE_BLOCK.get(),
                         BlockInit.TARGETED_STONE_BLOCK.get()
                 )
-                .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
-                .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
-                .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new))
-                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+                .add(BlockInit.CIRCLE_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new))
+                .add(BlockInit.CIRCLE_FLIPS_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new))
+                .add(BlockInit.CIRCLE_CYCLE_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new))
+                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new));
 
         tag(MusingsTags.Blocks.WOOD_INLAYS)
-                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
+                .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(RegistryObject::get).toArray(Block[]::new));
     }
 
     @Override

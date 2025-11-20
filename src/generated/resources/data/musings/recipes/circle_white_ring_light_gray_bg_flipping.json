@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:light_gray_dye"
+    },
+    "L": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "M": {
+      "item": "musings:musings_template"
+    },
+    "R": {
+      "item": "minecraft:white_dye"
+    },
+    "T": {
+      "item": "minecraft:redstone_torch"
+    }
+  },
+  "pattern": [
+    "RT ",
+    "BLM"
+  ],
+  "result": {
+    "item": "musings:circle_white_ring_light_gray_bg_flipping"
+  },
+  "show_notification": true
+}

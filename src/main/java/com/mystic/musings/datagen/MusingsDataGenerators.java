@@ -4,16 +4,16 @@ import com.mystic.musings.Musings;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = Musings.MODID)
+@Mod.EventBusSubscriber(modid = Musings.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MusingsDataGenerators {
     @SubscribeEvent
     public static void gatherData(final GatherDataEvent event) {
@@ -32,8 +32,8 @@ public class MusingsDataGenerators {
         if (event.includeServer()) {
             gen.addProvider(true, blockTags);
             gen.addProvider(true, new MusingsItemTagsProvider(packOutput, lookupProvider, blockTags.contentsGetter(), helper));
-            gen.addProvider(true, new MusingsRecipes(packOutput, lookupProvider));
-            gen.addProvider(true, new MusingLootTables(packOutput, Set.of(), List.of(), lookupProvider));
+            gen.addProvider(true, new MusingsRecipes(packOutput));
+            gen.addProvider(true, new MusingLootTables(packOutput, Set.of(), List.of()));
         }
     }
 }
