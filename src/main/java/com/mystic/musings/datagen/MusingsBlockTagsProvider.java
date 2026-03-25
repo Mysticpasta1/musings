@@ -8,7 +8,6 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,9 +15,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class MusingsBlockTagsProvider extends BlockTagsProvider {
     public MusingsBlockTagsProvider(PackOutput output,
-                                    CompletableFuture<HolderLookup.Provider> lookupProvider,
-                                    ExistingFileHelper efh) {
-        super(output, lookupProvider, Musings.MODID, efh);
+                                    CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, Musings.MODID);
     }
 
     @Override
@@ -54,10 +52,5 @@ public class MusingsBlockTagsProvider extends BlockTagsProvider {
 
         tag(MusingsTags.Blocks.WOOD_INLAYS)
                 .add(BlockInit.WOOD_INLAY_BLOCKS.values().stream().map(DeferredHolder::get).toArray(Block[]::new));
-    }
-
-    @Override
-    public @NotNull String getName() {
-        return "Musings Block Tags";
     }
 }

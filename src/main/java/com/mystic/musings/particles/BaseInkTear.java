@@ -2,26 +2,28 @@ package com.mystic.musings.particles;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.particle.SingleQuadParticle;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.LightCoordsUtil;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class BaseInkTear extends TextureSheetParticle {
+public abstract class BaseInkTear extends SingleQuadParticle {
     protected boolean isGlowing = true;
 
-    protected BaseInkTear(ClientLevel lvl, double x, double y, double z, InkTearOptions c) {
-        super(lvl, x, y, z);
+    protected BaseInkTear(ClientLevel lvl, double x, double y, double z, TextureAtlasSprite tas, InkTearOptions c) {
+        super(lvl, x, y, z, tas);
         this.setSize(0.01F, 0.01F);
         this.setColor(c.r(), c.g(), c.b());
     }
 
     @Override
-    public @NotNull ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
+    public SingleQuadParticle.Layer getLayer() {
+        return SingleQuadParticle.Layer.OPAQUE;
     }
 
     @Override
-    public int getLightColor(float pt) {
-        return isGlowing ? 240 : super.getLightColor(pt);
+    public int getLightCoords(float a) {
+        return this.isGlowing ? LightCoordsUtil.withBlock(super.getLightCoords(a), 15) : super.getLightCoords(a);
     }
 
     @Override
@@ -52,8 +54,8 @@ public abstract class BaseInkTear extends TextureSheetParticle {
     public static class InkTearHangParticle extends BaseInkTear {
         private final InkTearOptions color;
 
-        public InkTearHangParticle(ClientLevel lvl, double x, double y, double z, InkTearOptions c) {
-            super(lvl, x, y, z, c);
+        public InkTearHangParticle(ClientLevel lvl, double x, double y, double z, TextureAtlasSprite tas, InkTearOptions c) {
+            super(lvl, x, y, z, tas, c);
             this.color = c;
             this.gravity = 0.01F;
             this.lifetime = 10;
@@ -77,8 +79,8 @@ public abstract class BaseInkTear extends TextureSheetParticle {
     public static class InkTearFallParticle extends BaseInkTear {
         private final InkTearOptions color;
 
-        public InkTearFallParticle(ClientLevel lvl, double x, double y, double z, InkTearOptions c) {
-            super(lvl, x, y, z, c);
+        public InkTearFallParticle(ClientLevel lvl, double x, double y, double z, TextureAtlasSprite tas, InkTearOptions c) {
+            super(lvl, x, y, z, tas, c);
             this.color = c;
             this.gravity = 0.01F;
             this.lifetime = 40;
@@ -95,8 +97,8 @@ public abstract class BaseInkTear extends TextureSheetParticle {
     }
 
     public static class InkTearLandParticle extends BaseInkTear {
-        public InkTearLandParticle(ClientLevel lvl, double x, double y, double z, InkTearOptions c) {
-            super(lvl, x, y, z, c);
+        public InkTearLandParticle(ClientLevel lvl, double x, double y, double z, TextureAtlasSprite tas, InkTearOptions c) {
+            super(lvl, x, y, z, tas, c);
             this.lifetime = (int) (28.0 / (this.random.nextDouble() * 0.8 + 0.2));
         }
 

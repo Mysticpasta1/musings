@@ -6,20 +6,18 @@ import com.mystic.musings.init.ItemInit;
 import com.mystic.musings.tags.MusingsTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.ItemTagsProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
 public class MusingsItemTagsProvider extends ItemTagsProvider {
     public MusingsItemTagsProvider(PackOutput output,
-                                   CompletableFuture<HolderLookup.Provider> lookupProvider,
-                                   CompletableFuture<TagLookup<Block>> blockTagLookup,
-                                   ExistingFileHelper efh) {
-        super(output, lookupProvider, blockTagLookup, Musings.MODID, efh);
+                                   CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(output, lookupProvider, Musings.MODID);
     }
 
     @Override

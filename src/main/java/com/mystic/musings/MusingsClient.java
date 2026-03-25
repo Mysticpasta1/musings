@@ -18,24 +18,18 @@ public class MusingsClient {
     @SubscribeEvent
     public static void onRegisterParticles(RegisterParticleProvidersEvent e) {
         e.registerSpriteSet(ParticleInit.INK_TEAR_HANG.get(), sprites ->
-                (options, level, x, y, z, xd, yd, zd) -> {
-                    var p = new BaseInkTear.InkTearHangParticle(level, x, y, z, options);
-                    p.pickSprite(sprites);
-                    return p;
+                (options, level, x, y, z, xd, yd, zd, randomSource) -> {
+                    return new BaseInkTear.InkTearHangParticle(level, x, y, z, sprites.first(), options);
                 });
 
         e.registerSpriteSet(ParticleInit.INK_TEAR_FALL.get(), sprites ->
-                (options, level, x, y, z, xd, yd, zd) -> {
-                    var p = new BaseInkTear.InkTearFallParticle(level, x, y, z, options);
-                    p.pickSprite(sprites);
-                    return p;
+                (options, level, x, y, z, xd, yd, zd, randomSource) -> {
+                    return new BaseInkTear.InkTearFallParticle(level, x, y, z, sprites.first(), options);
                 });
 
         e.registerSpriteSet(ParticleInit.INK_TEAR_LAND.get(), sprites ->
-                (options, level, x, y, z, xd, yd, zd) -> {
-                    var p = new BaseInkTear.InkTearLandParticle(level, x, y, z, options);
-                    p.pickSprite(sprites);
-                    return p;
+                (options, level, x, y, z, xd, yd, zd, randomSource) -> {
+                    return new BaseInkTear.InkTearLandParticle(level, x, y, z, sprites.first(), options);
                 });
     }
 }

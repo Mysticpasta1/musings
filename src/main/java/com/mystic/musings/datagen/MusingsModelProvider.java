@@ -1,11 +1,15 @@
 package com.mystic.musings.datagen;
 
 import com.mystic.musings.Musings;
+import com.mystic.musings.init.BlockInit;
 import net.minecraft.data.PackOutput;
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.minecraft.client.data.models.BlockModelGenerators;
+import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.ModelProvider;
+import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.resources.Identifier;
 
-public class MusingsModelProvider extends ItemModelProvider {
+public class MusingsModelProvider extends ModelProvider {
     private static final String[] DYE_NAMES = {
             "white","orange","magenta","light_blue","yellow",
             "lime","pink","gray","light_gray","cyan",
@@ -18,59 +22,55 @@ public class MusingsModelProvider extends ItemModelProvider {
             "dark_oak","mangrove","cherry","bamboo","crimson","warped"
     };
 
-    public MusingsModelProvider(PackOutput output, ExistingFileHelper helper) {
-        super(output, Musings.MODID, helper);
+    public MusingsModelProvider(PackOutput output, String modId) {
+        super(output, modId);
     }
 
     @Override
-    protected void registerModels() {
-        withExistingParent("flower_stone", modLoc("block/flower_stone"));
-        withExistingParent("guided_stone", modLoc("block/guided_stone"));
-        withExistingParent("optical_stone", modLoc("block/optical_stone"));
-        withExistingParent("petal_stone", modLoc("block/petal_stone"));
-        withExistingParent("targeted_stone", modLoc("block/targeted_stone"));
+    protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+        // Register block states and models
+        registerBlockStates(blockModels);
+    }
 
-        // circle blocks
-        for (String ring : DYE_NAMES) {
-            for (String bg : DYE_NAMES) {
-                if (ring.equals(bg)) continue;
-                String name = String.format("circle_%s_ring_%s_bg", ring, bg);
-                withExistingParent(name, modLoc("block/" + name));
-            }
-        }
+    private void registerBlockStates(BlockModelGenerators blockModels) {
+        BlockInit.CIRCLE_BLOCKS.forEach((name, holder) -> {
+            blockModels.createTrivialCube(holder.get());
+            blockModels.registerSimpleFlatItemModel(holder.get());
+        });
 
-        // flipping variants
-        for (String ring : DYE_NAMES) {
-            for (String bg : DYE_NAMES) {
-                if (ring.equals(bg)) continue;
-                String name = String.format("circle_%s_ring_%s_bg_flipping", ring, bg);
-                withExistingParent(name, modLoc("block/" + name));
-            }
-        }
+        BlockInit.CIRCLE_FLIPS_BLOCKS.forEach((name, holder) -> {
+            blockModels.createTrivialCube(holder.get());
+            blockModels.registerSimpleFlatItemModel(holder.get());
+        });
 
-        // cycle variants
-        for (String color : DYE_NAMES) {
-            String cycleName = "circle_cycle_" + color;
-            withExistingParent(cycleName, modLoc("block/" + cycleName));
-        }
+        BlockInit.CIRCLE_CYCLE_BLOCKS.forEach((name, holder) -> {
+            blockModels.createTrivialCube(holder.get());
+            blockModels.registerSimpleFlatItemModel(holder.get());
+        });
 
-        // colored ink blocks
-        for (String color : DYE_NAMES) {
-            String name = color + "_ink_block";
-            withExistingParent(name, modLoc("block/" + name));
-        }
+        BlockInit.INK_BLOCKS.forEach((name, holder) -> {
+            blockModels.createTrivialCube(holder.get());
+            blockModels.registerSimpleFlatItemModel(holder.get());
+        });
 
-        // wood inlays
-        for (String wood : WOOD_TYPES) {
-            String name = wood + "_inlay";
-            withExistingParent(name, modLoc("block/" + name));
-        }
+        BlockInit.WOOD_INLAY_BLOCKS.forEach((name, holder) -> {
+            blockModels.createTrivialCube(holder.get());
+            blockModels.registerSimpleFlatItemModel(holder.get());
+        });
 
-        // musings template item
-        singleTexture("musings_template",
-                mcLoc("item/generated"),
-                "layer0", modLoc("item/musings_template"));
-
+        blockModels.createTrivialCube(BlockInit.FLOWER_STONE_BLOCK.get());
+        blockModels.registerSimpleFlatItemModel(BlockInit.FLOWER_STONE_BLOCK.get());
+        
+        blockModels.createTrivialCube(BlockInit.GUIDED_STONE_BLOCK.get());
+        blockModels.registerSimpleFlatItemModel(BlockInit.GUIDED_STONE_BLOCK.get());
+        
+        blockModels.createTrivialCube(BlockInit.OPTICAL_STONE_BLOCK.get());
+        blockModels.registerSimpleFlatItemModel(BlockInit.OPTICAL_STONE_BLOCK.get());
+        
+        blockModels.createTrivialCube(BlockInit.PETAL_STONE_BLOCK.get());
+        blockModels.registerSimpleFlatItemModel(BlockInit.PETAL_STONE_BLOCK.get());
+        
+        blockModels.createTrivialCube(BlockInit.TARGETED_STONE_BLOCK.get());
+        blockModels.registerSimpleFlatItemModel(BlockInit.TARGETED_STONE_BLOCK.get());
     }
 }
-

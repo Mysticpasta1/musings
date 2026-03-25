@@ -15,7 +15,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class BlockInit {
     public static final DeferredRegister.Blocks BLOCKS =
@@ -27,32 +26,28 @@ public class BlockInit {
     public static final Map<String, DeferredBlock<Block>> WOOD_INLAY_BLOCKS = new HashMap<>();
     public static final Map<String, DeferredBlock<Block>> INK_BLOCKS = new HashMap<>();
 
-    public static final DeferredBlock<Block> FLOWER_STONE_BLOCK = registerBlock("flower_stone",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+    public static final DeferredBlock<Block> FLOWER_STONE_BLOCK = registerBlock("flower_stone", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
     public static final DeferredBlock<Block> GUIDED_STONE_BLOCK = registerBlock("guided_stone",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+            Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
     public static final DeferredBlock<Block> OPTICAL_STONE_BLOCK = registerBlock("optical_stone",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+            Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
     public static final DeferredBlock<Block> PETAL_STONE_BLOCK = registerBlock("petal_stone",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+            Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
     public static final DeferredBlock<Block> TARGETED_STONE_BLOCK = registerBlock("targeted_stone",
-            () -> new Block(BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
+            Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
     private static void registerColoredInks() {
         for (DyeColor color : DyeColor.values()) {
             String name = color.getName() + "_ink_block";
-            INK_BLOCKS.put(name, registerBlock(name, () ->
-                    new InkBlock(BlockBehaviour.Properties
-                            .of()
-                            .mapColor(color)
-                            .strength(1.8F)
-                            .sound(net.minecraft.world.level.block.SoundType.SLIME_BLOCK)
-                    )
-            ));
+            INK_BLOCKS.put(name, registerBlock(name, (properties) -> new InkBlock(properties
+                    .mapColor(color)
+                    .strength(1.8F)
+                    .sound(net.minecraft.world.level.block.SoundType.SLIME_BLOCK)
+            ), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)));
         }
     }
 
@@ -61,11 +56,7 @@ public class BlockInit {
             for (DyeColor bg : DyeColor.values()) {
                 if (ring.equals(bg)) continue;
                 String name = String.format("circle_%s_ring_%s_bg", ring.getName(), bg.getName());
-                CIRCLE_BLOCKS.put(name, registerBlock(name, () ->
-                        new Block(BlockBehaviour.Properties
-                                .ofFullCopy(Blocks.GLOWSTONE)
-                        )
-                ));
+                CIRCLE_BLOCKS.put(name, registerBlock(name, Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE)));
             }
         }
 
@@ -73,21 +64,13 @@ public class BlockInit {
             for (DyeColor bg : DyeColor.values()) {
                 if (ring.equals(bg)) continue;
                 String name = String.format("circle_%s_ring_%s_bg_flipping", ring.getName(), bg.getName());
-                CIRCLE_FLIPS_BLOCKS.put(name, registerBlock(name, () ->
-                        new Block(BlockBehaviour.Properties
-                                .ofFullCopy(Blocks.GLOWSTONE)
-                        )
-                ));
+                CIRCLE_FLIPS_BLOCKS.put(name, registerBlock(name, Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE)));
             }
         }
 
         for (DyeColor color : DyeColor.values()) {
             String name = "circle_cycle_" + color.getName();
-            CIRCLE_CYCLE_BLOCKS.put(name, registerBlock(name, () ->
-                    new Block(BlockBehaviour.Properties
-                            .ofFullCopy(Blocks.GLOWSTONE)
-                    )
-            ));
+            CIRCLE_CYCLE_BLOCKS.put(name, registerBlock(name,  Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.GLOWSTONE)));
         }
 
         registerWoodInlays();
@@ -110,17 +93,17 @@ public class BlockInit {
 
     private static void registerWoodInlay(String woodName, Block basePlanks) {
         String regName = woodName + "_inlay";
-        WOOD_INLAY_BLOCKS.put(regName, registerBlock(regName,
-                () -> new Block(BlockBehaviour.Properties.ofFullCopy(basePlanks))));
+        WOOD_INLAY_BLOCKS.put(regName, registerBlock(regName, Block::new, BlockBehaviour.Properties.ofFullCopy(basePlanks)));
     }
 
-    private static <B extends Block> DeferredBlock<B> registerBlock(String name, Supplier<B> block) {
-        return registerMainTabBlock(name, block, b -> () -> new BlockItem(b.get(), new Item.Properties()));
+    private static <B extends Block> DeferredBlock<B> registerBlock(String name, Function<BlockBehaviour.Properties, B> blockFactory, BlockBehaviour.Properties properties) {
+        return registerMainTabBlock(name, blockFactory, properties);
     }
 
-    private static <B extends Block, I extends BlockItem> DeferredBlock<B> registerMainTabBlock(String name, Supplier<B> block, Function<DeferredBlock<B>, Supplier<I>> item) {
-        var reg = BLOCKS.register(name, block);
-        CreativeMenuInit.addToMainTab(ItemInit.ITEMS.register(name, () -> item.apply(reg).get()));
+    private static <B extends Block, I extends BlockItem> DeferredBlock<B> registerMainTabBlock(String name, Function<BlockBehaviour.Properties, B> blockFactory, BlockBehaviour.Properties properties) {
+        var reg = BLOCKS.registerBlock(name, blockFactory, () -> properties);
+        var itemReg = ItemInit.ITEMS.registerItem(name, props -> new BlockItem(reg.get(), props), Item.Properties::new);
+        CreativeMenuInit.addToMainTab(itemReg);
         return reg;
     }
 
