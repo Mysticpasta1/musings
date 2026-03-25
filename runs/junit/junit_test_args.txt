@@ -1,6 +1,0 @@
---version
-26.1.0.1-beta
---assetIndex
-asset-index
---assetsDir
-/var/home/mystic/.gradle/caches/minecraft/assets
