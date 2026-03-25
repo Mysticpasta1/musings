@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "musings:block/circle_cyan_ring_gray_bg_flipping"
+  }
+}

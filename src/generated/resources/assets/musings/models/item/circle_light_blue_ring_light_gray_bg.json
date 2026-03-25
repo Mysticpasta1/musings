@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "musings:block/circle_light_blue_ring_light_gray_bg"
+  }
+}
