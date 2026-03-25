@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/red_ink_block"
+    "model": "musings:block/red_ink_block"
   }
 }

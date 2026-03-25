@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/guided_stone"
+    "model": "musings:block/guided_stone"
   }
 }

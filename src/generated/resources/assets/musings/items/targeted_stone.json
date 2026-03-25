@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/targeted_stone"
+    "model": "musings:block/targeted_stone"
   }
 }

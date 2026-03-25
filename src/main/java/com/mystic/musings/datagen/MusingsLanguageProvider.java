@@ -23,6 +23,7 @@ public class MusingsLanguageProvider extends LanguageProvider {
             String pretty = capitalizeWords(color);
             String display = pretty + " Circle Cycle";
             add(block.get(), display);
+            add(block.get().asItem(), display);
         });
 
         BlockInit.CIRCLE_BLOCKS.forEach((name, block) -> {
@@ -49,6 +50,7 @@ public class MusingsLanguageProvider extends LanguageProvider {
             // e.g. "White on Orange Circle"
             String display = prettyRing + " on " + prettyBg + " Circle";
             add(block.get(), display);
+            add(block.get().asItem(), display);
         });
 
         for (Map.Entry<String, DeferredBlock<Block>> e : BlockInit.WOOD_INLAY_BLOCKS.entrySet()) {
@@ -59,8 +61,10 @@ public class MusingsLanguageProvider extends LanguageProvider {
             if (name.endsWith("_inlay")) {
                 String wood = name.substring(0, name.length() - "_inlay".length());
                 add(e.getValue().get(), capitalizeWords(wood) + " Inlay");
+                add(e.getValue().get().asItem(), capitalizeWords(wood) + " Inlay");
             } else {
                 add(e.getValue().get(), capitalizeWords(name));
+                add(e.getValue().get().asItem(), capitalizeWords(name));
             }
         }
 
@@ -70,17 +74,24 @@ public class MusingsLanguageProvider extends LanguageProvider {
                 String color = name.substring(0, name.length() - "_ink_block".length());
                 String prettyColor = capitalizeWords(color);
                 add(e.getValue().get(), prettyColor + " Ink Block");
+                add(e.getValue().get().asItem(), prettyColor + " Ink Block");
             } else {
                 add(e.getValue().get(), capitalizeWords(name));
+                add(e.getValue().get().asItem(), capitalizeWords(name));
             }
         }
 
         add(ItemInit.MUSINGS_TEMPLATE.get(), "Musings Template");
         add(BlockInit.FLOWER_STONE_BLOCK.get(), "Flower Stone Block");
+        add(BlockInit.FLOWER_STONE_BLOCK.get().asItem(), "Flower Stone Block");
         add(BlockInit.GUIDED_STONE_BLOCK.get(), "Guided Stone Block");
+        add(BlockInit.GUIDED_STONE_BLOCK.get().asItem(), "Guided Stone Block");
         add(BlockInit.OPTICAL_STONE_BLOCK.get(), "Optical Stone Block");
+        add(BlockInit.OPTICAL_STONE_BLOCK.get().asItem(), "Optical Stone Block");
         add(BlockInit.PETAL_STONE_BLOCK.get(),  "Petal Stone Block");
+        add(BlockInit.PETAL_STONE_BLOCK.get().asItem(), "Petal Stone Block");
         add(BlockInit.TARGETED_STONE_BLOCK.get(), "Targeted Stone Block");
+        add(BlockInit.TARGETED_STONE_BLOCK.get().asItem(),"Targeted Stone Block");
 
 
         BlockInit.CIRCLE_FLIPS_BLOCKS.forEach((name, block) -> {
@@ -111,6 +122,7 @@ public class MusingsLanguageProvider extends LanguageProvider {
             String display    = prettyRing + " on " + prettyBg + " Circle Flipping";
 
             add(block.get(), display);
+            add(block.get().asItem(), display);
         });
 
     }

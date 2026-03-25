@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/oak_inlay"
+    "model": "musings:block/oak_inlay"
   }
 }

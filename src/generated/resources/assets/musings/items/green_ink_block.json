@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/green_ink_block"
+    "model": "musings:block/green_ink_block"
   }
 }

@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/crimson_inlay"
+    "model": "musings:block/crimson_inlay"
   }
 }

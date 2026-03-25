@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/circle_pink_ring_yellow_bg"
+    "model": "musings:block/circle_pink_ring_yellow_bg"
   }
 }

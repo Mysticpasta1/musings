@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/cherry_inlay"
+    "model": "musings:block/cherry_inlay"
   }
 }

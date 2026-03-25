@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/circle_white_ring_gray_bg"
+    "model": "musings:block/circle_white_ring_gray_bg"
   }
 }

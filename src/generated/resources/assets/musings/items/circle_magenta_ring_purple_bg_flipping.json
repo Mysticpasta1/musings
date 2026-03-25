@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/circle_magenta_ring_purple_bg_flipping"
+    "model": "musings:block/circle_magenta_ring_purple_bg_flipping"
   }
 }

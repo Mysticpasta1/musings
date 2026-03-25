@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/optical_stone"
+    "model": "musings:block/optical_stone"
   }
 }

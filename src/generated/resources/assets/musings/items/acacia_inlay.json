@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "musings:item/acacia_inlay"
+    "model": "musings:block/acacia_inlay"
   }
 }
