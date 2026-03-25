@@ -18,13 +18,9 @@ import java.util.stream.IntStream;
 import static com.mystic.musings.Musings.LOGGER;
 
 public class MusingsRecipeProvider extends RecipeProvider {
-    private HolderLookup.Provider provider;
-    private RecipeOutput recipeOutput;
 
     public MusingsRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
         super(provider, recipeOutput);
-        this.provider = provider;
-        this.recipeOutput = recipeOutput;
     }
 
     @Override
@@ -34,14 +30,14 @@ public class MusingsRecipeProvider extends RecipeProvider {
             String color = name.substring("circle_cycle_".length());
             Item dye = BuiltInRegistries.ITEM.get(Identifier.withDefaultNamespace(color + "_dye")).orElseThrow().value();
 
-            ShapelessRecipeBuilder.shapeless(provider.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.DECORATIONS, resultBlock, 1)
+            ShapelessRecipeBuilder.shapeless(registries.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.DECORATIONS, resultBlock, 1)
                     .requires(Items.REDSTONE_LAMP)
                     .requires(dye)
                     .requires(Items.REDSTONE)
                     .requires(ItemInit.MUSINGS_TEMPLATE.get())
                     .unlockedBy("has_" + color + "_dye", has(dye))
                     .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
-                    .save(recipeOutput, Musings.MODID + ":" + name);
+                    .save(output);
         });
 
         BlockInit.CIRCLE_BLOCKS.forEach((name, holder) -> {
@@ -64,7 +60,7 @@ public class MusingsRecipeProvider extends RecipeProvider {
                 return;
             }
 
-            ShapedRecipeBuilder.shaped(provider.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.DECORATIONS, resultBlock, 1)
+            ShapedRecipeBuilder.shaped(registries.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.DECORATIONS, resultBlock, 1)
                     .define('R', ringDye)
                     .define('B', bgDye)
                     .define('S', Items.REDSTONE)
@@ -75,7 +71,7 @@ public class MusingsRecipeProvider extends RecipeProvider {
                     .unlockedBy("has_" + ringColor + "_dye", has(ringDye))
                     .unlockedBy("has_" + bgColor   + "_dye", has(bgDye))
                     .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
-                    .save(recipeOutput, Musings.MODID + ":" + name);
+                    .save(output);
         });
 
         BlockInit.CIRCLE_FLIPS_BLOCKS.forEach((name, holder) -> {
@@ -96,7 +92,7 @@ public class MusingsRecipeProvider extends RecipeProvider {
                 return;
             }
 
-            ShapedRecipeBuilder.shaped(provider.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.DECORATIONS, resultBlock)
+            ShapedRecipeBuilder.shaped(registries.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.DECORATIONS, resultBlock)
                     .define('R', ringDye)
                     .define('B', bgDye)
                     .define('T', Items.REDSTONE_TORCH)
@@ -107,7 +103,7 @@ public class MusingsRecipeProvider extends RecipeProvider {
                     .unlockedBy("has_" + ringColor + "_dye", has(ringDye))
                     .unlockedBy("has_" + bgColor   + "_dye", has(bgDye))
                     .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
-                    .save(recipeOutput, Musings.MODID + ":" + name);
+                    .save(output);
         });
 
         BlockInit.WOOD_INLAY_BLOCKS.forEach((name, holder) -> {
@@ -120,7 +116,7 @@ public class MusingsRecipeProvider extends RecipeProvider {
                 return;
             }
 
-            ShapedRecipeBuilder.shaped(provider.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.BUILDING_BLOCKS, resultBlock)
+            ShapedRecipeBuilder.shaped(registries.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.BUILDING_BLOCKS, resultBlock)
                     .define('P', planksItem)
                     .define('M', ItemInit.MUSINGS_TEMPLATE.get())
                     .pattern("P P")
@@ -128,7 +124,7 @@ public class MusingsRecipeProvider extends RecipeProvider {
                     .pattern("P P")
                     .unlockedBy("has_" + wood + "_planks", has(planksItem))
                     .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
-                    .save(recipeOutput, Musings.MODID + ":" + name + "_from_planks_recipe");
+                    .save(output);
         });
 
         BlockInit.INK_BLOCKS.forEach((name, holder) -> {
@@ -136,7 +132,7 @@ public class MusingsRecipeProvider extends RecipeProvider {
             String color = name.substring(0, name.indexOf("_ink_block"));
             Item dye = BuiltInRegistries.ITEM.get(Identifier.withDefaultNamespace(color + "_dye")).orElseThrow().value();
 
-            ShapedRecipeBuilder.shaped(provider.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.DECORATIONS, resultBlock, 1)
+            ShapedRecipeBuilder.shaped(registries.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.DECORATIONS, resultBlock, 1)
                     .define('D', dye)
                     .define('S', Items.SLIME_BLOCK)
                     .define('M', ItemInit.MUSINGS_TEMPLATE.get())
@@ -145,17 +141,16 @@ public class MusingsRecipeProvider extends RecipeProvider {
                     .pattern("DSD")
                     .unlockedBy("has_" + color + "_dye", has(dye))
                     .unlockedBy("has_musings_template", has(ItemInit.MUSINGS_TEMPLATE.get()))
-                    .save(recipeOutput, Musings.MODID + ":" + name);
-
+                    .save(output);
         });
 
-        createStonecutting(recipeOutput, BlockInit.FLOWER_STONE_BLOCK.get().asItem());
-        createStonecutting(recipeOutput, BlockInit.GUIDED_STONE_BLOCK.get().asItem());
-        createStonecutting(recipeOutput, BlockInit.OPTICAL_STONE_BLOCK.get().asItem());
-        createStonecutting(recipeOutput, BlockInit.PETAL_STONE_BLOCK.get().asItem());
-        createStonecutting(recipeOutput, BlockInit.TARGETED_STONE_BLOCK.get().asItem());
+        createStonecutting(output, BlockInit.FLOWER_STONE_BLOCK.get().asItem());
+        createStonecutting(output, BlockInit.GUIDED_STONE_BLOCK.get().asItem());
+        createStonecutting(output, BlockInit.OPTICAL_STONE_BLOCK.get().asItem());
+        createStonecutting(output, BlockInit.PETAL_STONE_BLOCK.get().asItem());
+        createStonecutting(output, BlockInit.TARGETED_STONE_BLOCK.get().asItem());
 
-        ShapedRecipeBuilder.shaped(provider.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.MISC, ItemInit.MUSINGS_TEMPLATE.get())
+        ShapedRecipeBuilder.shaped(registries.lookupOrThrow(BuiltInRegistries.ITEM.key()), RecipeCategory.MISC, ItemInit.MUSINGS_TEMPLATE.get())
                 .define('P', Items.PAPER)
                 .define('S', Items.STRING)
                 .define('I', Items.BLACK_DYE)
@@ -163,7 +158,7 @@ public class MusingsRecipeProvider extends RecipeProvider {
                 .pattern("PIP")
                 .pattern("SPS")
                 .unlockedBy("has_paper", has(Items.PAPER))
-                .save(recipeOutput, Musings.MODID + ":musings_template");
+                .save(output);
     }
 
     private static void logMissingDye(String name, String ringColor, String bgColor) {

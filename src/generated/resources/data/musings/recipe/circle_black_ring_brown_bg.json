@@ -2,28 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:brown_dye"
-    },
-    "L": {
-      "item": "minecraft:redstone_lamp"
-    },
-    "M": {
-      "item": "musings:musings_template"
-    },
-    "R": {
-      "item": "minecraft:black_dye"
-    },
-    "S": {
-      "item": "minecraft:redstone"
-    }
+    "B": "minecraft:brown_dye",
+    "L": "minecraft:redstone_lamp",
+    "M": "musings:musings_template",
+    "R": "minecraft:black_dye",
+    "S": "minecraft:redstone"
   },
   "pattern": [
     "RS ",
     "BLM"
   ],
   "result": {
-    "count": 1,
     "id": "musings:circle_black_ring_brown_bg"
   }
 }

@@ -1,13 +1,13 @@
 package com.mystic.musings.datagen;
 
-import com.mystic.musings.Musings;
 import com.mystic.musings.init.BlockInit;
+import com.mystic.musings.init.ItemInit;
+import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.data.PackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.resources.Identifier;
+import org.jspecify.annotations.NonNull;
 
 public class MusingsModelProvider extends ModelProvider {
     private static final String[] DYE_NAMES = {
@@ -27,10 +27,15 @@ public class MusingsModelProvider extends ModelProvider {
     }
 
     @Override
-    protected void registerModels(BlockModelGenerators blockModels, ItemModelGenerators itemModels) {
+    protected void registerModels(@NonNull BlockModelGenerators blockModels, @NonNull ItemModelGenerators itemModels) {
         // Register block states and models
         registerBlockStates(blockModels);
+        registerItemModels(itemModels);
     }
+
+    private void registerItemModels(ItemModelGenerators itemModels) {
+        itemModels.generateFlatItem(ItemInit.MUSINGS_TEMPLATE.get(), ModelTemplates.FLAT_ITEM);
+    };
 
     private void registerBlockStates(BlockModelGenerators blockModels) {
         BlockInit.CIRCLE_BLOCKS.forEach((name, holder) -> {

@@ -6,15 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:survives_explosion"
-            }
-          ],
-          "name": "musings:circle_black_ring_lime_bg_flipping"
-        },
-        {
-          "type": "minecraft:item",
           "name": "musings:circle_black_ring_lime_bg_flipping"
         }
       ],

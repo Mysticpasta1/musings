@@ -3,6 +3,7 @@ package com.mystic.musings.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -12,12 +13,12 @@ public class MusingsRecipes extends RecipeProvider.Runner {
     }
 
     @Override
-    protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, RecipeOutput output) {
+    protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider registries, @NonNull RecipeOutput output) {
         return new MusingsRecipeProvider(registries, output);
     }
 
     @Override
-    public String getName() {
+    public @NonNull String getName() {
         return "Recipes";
     }
 }

@@ -6,15 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:survives_explosion"
-            }
-          ],
-          "name": "musings:dark_oak_inlay"
-        },
-        {
-          "type": "minecraft:item",
           "name": "musings:dark_oak_inlay"
         }
       ],

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "M": "musings:musings_template",
+    "P": "minecraft:jungle_planks"
+  },
+  "pattern": [
+    "P P",
+    " M ",
+    "P P"
+  ],
+  "result": {
+    "id": "musings:jungle_inlay"
+  }
+}

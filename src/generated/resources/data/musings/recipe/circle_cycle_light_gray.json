@@ -2,21 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "minecraft:redstone_lamp"
-    },
-    {
-      "item": "minecraft:light_gray_dye"
-    },
-    {
-      "item": "minecraft:redstone"
-    },
-    {
-      "item": "musings:musings_template"
-    }
+    "minecraft:redstone_lamp",
+    "minecraft:light_gray_dye",
+    "minecraft:redstone",
+    "musings:musings_template"
   ],
   "result": {
-    "count": 1,
     "id": "musings:circle_cycle_light_gray"
   }
 }

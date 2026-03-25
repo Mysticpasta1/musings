@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": {
-      "item": "minecraft:yellow_dye"
-    },
-    "M": {
-      "item": "musings:musings_template"
-    },
-    "S": {
-      "item": "minecraft:slime_block"
-    }
+    "D": "minecraft:yellow_dye",
+    "M": "musings:musings_template",
+    "S": "minecraft:slime_block"
   },
   "pattern": [
     "DSD",
@@ -18,7 +12,6 @@
     "DSD"
   ],
   "result": {
-    "count": 1,
     "id": "musings:yellow_ink_block"
   }
 }

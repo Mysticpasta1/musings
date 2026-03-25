@@ -6,15 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:survives_explosion"
-            }
-          ],
-          "name": "musings:light_gray_ink_block"
-        },
-        {
-          "type": "minecraft:item",
           "name": "musings:light_gray_ink_block"
         }
       ],

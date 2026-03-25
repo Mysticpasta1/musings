@@ -2,28 +2,17 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "B": {
-      "item": "minecraft:yellow_dye"
-    },
-    "L": {
-      "item": "minecraft:redstone_lamp"
-    },
-    "M": {
-      "item": "musings:musings_template"
-    },
-    "R": {
-      "item": "minecraft:light_blue_dye"
-    },
-    "T": {
-      "item": "minecraft:redstone_torch"
-    }
+    "B": "minecraft:yellow_dye",
+    "L": "minecraft:redstone_lamp",
+    "M": "musings:musings_template",
+    "R": "minecraft:light_blue_dye",
+    "T": "minecraft:redstone_torch"
   },
   "pattern": [
     "RT ",
     "BLM"
   ],
   "result": {
-    "count": 1,
     "id": "musings:circle_light_blue_ring_yellow_bg_flipping"
   }
 }

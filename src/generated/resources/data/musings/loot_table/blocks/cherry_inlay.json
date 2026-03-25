@@ -6,15 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "conditions": [
-            {
-              "condition": "minecraft:survives_explosion"
-            }
-          ],
-          "name": "musings:cherry_inlay"
-        },
-        {
-          "type": "minecraft:item",
           "name": "musings:cherry_inlay"
         }
       ],

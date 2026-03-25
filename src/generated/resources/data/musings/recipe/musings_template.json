@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": {
-      "item": "minecraft:black_dye"
-    },
-    "P": {
-      "item": "minecraft:paper"
-    },
-    "S": {
-      "item": "minecraft:string"
-    }
+    "I": "minecraft:black_dye",
+    "P": "minecraft:paper",
+    "S": "minecraft:string"
   },
   "pattern": [
     "SPS",
@@ -18,7 +12,6 @@
     "SPS"
   ],
   "result": {
-    "count": 1,
     "id": "musings:musings_template"
   }
 }
